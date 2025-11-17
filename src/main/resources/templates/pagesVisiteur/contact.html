@@ -1,0 +1,47 @@
+<!doctype html>
+<html th:replace="base :: html" lang="fr" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-4">Contactez-nous</h1>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <form>
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nom" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sujet" class="form-label">Sujet</label>
+                            <input type="text" class="form-control" id="sujet" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                </div>
+
+                <div class="col-md-4">
+                    <h3>Informations de contact</h3>
+                    <p><strong>Email :</strong> contact@monstersweb.fr</p>
+                    <p><strong>Téléphone :</strong> +33 1 23 45 67 89</p>
+                    <p><strong>Adresse :</strong><br>
+                        123 Rue des Monstres<br>
+                        75000 Paris, France</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

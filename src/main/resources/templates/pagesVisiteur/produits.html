@@ -1,0 +1,57 @@
+<!doctype html>
+<html th:replace="base :: html" lang="fr" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-4 text-center">Nos Produits</h1>
+
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Rechercher un produit...">
+                        <button class="btn btn-outline-secondary" type="button">Rechercher</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Produit 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Monstre Dragon</h5>
+                            <p class="card-text">Description du monstre dragon, créature légendaire et puissante.</p>
+                            <p class="fw-bold">29,99 €</p>
+                            <button class="btn btn-primary">Ajouter au panier</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Produit 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Monstre Vampire</h5>
+                            <p class="card-text">Description du monstre vampire, créature de la nuit mystérieuse.</p>
+                            <p class="fw-bold">24,99 €</p>
+                            <button class="btn btn-primary">Ajouter au panier</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Produit 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Monstre Zombie</h5>
+                            <p class="card-text">Description du monstre zombie, créature terrifiante et implacable.</p>
+                            <p class="fw-bold">19,99 €</p>
+                            <button class="btn btn-primary">Ajouter au panier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

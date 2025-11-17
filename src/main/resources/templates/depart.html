@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monsters Web - Choix du starter</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="navbar" style="display: none;">
+        <a href="index.html" onclick="resetGame()">Accueil</a>
+        <div id="connecte">
+            <a href="exploration.html">Explorer</a>
+            <a href="team.html">Équipe</a>
+            <a href="inventory.html">Inventaire</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="starter-selection">
+            <h1>Bienvenue dans Monsters Web !</h1>
+            <h2>Choisis ton premier monstre</h2>
+            <p style="font-size: 1.2rem; margin: 1rem 0; color: #ffd700;">
+                1 : Charbouk 🔥 | 2 : Aquabri 💧 | 3 : Brambou 🌿
+            </p>
+            
+            <div class="starters" id="starters">
+                <!-- Starter monsters will be generated here -->
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <input 
+                    type="text" 
+                    id="starter-choice" 
+                    class="name-input" 
+                    placeholder="Entre 1, 2 ou 3"
+                    maxlength="1"
+                    style="width: 200px;"
+                >
+                <br>
+                <button 
+                    onclick="handleStarterChoice()" 
+                    class="auth-button"
+                    style="margin-top: 1rem; width: 200px;"
+                >
+                    Choisir ce monstre
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-links">
+        <a href="#privacy">Politique de confidentialité</a>
+        <a href="#feedback">Donner votre avis</a>
+    </div>
+
+    <!-- Message Popup -->
+    <div id="message-popup" class="message-popup" style="display: none;"></div>
+
+    <script src="../static/js/game.js"></script>
+    <script>
+        function handleStarterChoice() {
+            const choice = document.getElementById('starter-choice').value.trim();
+            selectStarter(choice);
+        }
+
+        // Permettre la validation avec la touche Entrée
+        document.getElementById('starter-choice')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleStarterChoice();
+            }
+        });
+    </script>
+</body>
+</html>

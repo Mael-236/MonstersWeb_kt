@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monsters Web - RPG</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <a href="index.html">Accueil</a>
+        <a href="exploration.html">Explorer</a>
+        <a onclick="navigateTo('team')">Équipe</a>
+        <a onclick="navigateTo('inventory')">Inventaire</a>
+        </div>
+    </nav>
+    <div class="player-section">
+        <h3>Ton Monstre</h3>
+        <div id="player-monster" class="monster-display"></div>
+        <div class="hp-bar">
+            <div class="hp-fill player" id="player-hp"></div>
+        </div>
+        <p id="player-hp-text"></p>
+    </div>
+    <script src="../static/js/game.js"></script>
+</body>
+</html>
