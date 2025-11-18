@@ -1,12 +1,28 @@
 package org.ldv.webmonsters.model.entity
 
+import jakarta.persistence.*
+
+@Entity
 class objet(
-    val id: Int,
-    val nom: String,
-    val description: String,
-    val prix: Int,
-    val type: String,
-    val effet: String
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    var id: Long? = null,
+
+    @Column(nullable = false)
+    var nom: String,
+
+    @Column(nullable = false)
+    var description: String,
+
+    @Column(nullable = false)
+    var prix: Int,
+
+    @Column(nullable = false)
+    var type: String,
+
+    @Column(nullable = false)
+    var effet: String,
 ) {
     fun utiliser(cible: monstre) {
         println("$nom utilisé sur ${cible.nom}: $effet")

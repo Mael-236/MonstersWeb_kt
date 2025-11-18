@@ -1,11 +1,25 @@
 package org.ldv.webmonsters.model.entity
 
+import jakarta.persistence.*
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 open class utilisateur(
-    val id: Int,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    var id: Long? = null,
+
+    @Column(nullable = false)
     var pseudo: String,
+
+    @Column(nullable = false)
     private var motDePasse: String,
-    val estAdmin: Boolean = false
-) {
+
+    @Column(nullable = false)
+    val estAdmin: Boolean = false,
+)
+ {
     fun seConnecter() {
         println("$pseudo s'est connecté")
     }

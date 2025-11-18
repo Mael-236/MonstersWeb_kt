@@ -1,13 +1,11 @@
 package org.ldv.webmonsters.model.entity
 
 import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
 
 @Entity
-class admin(
-    @Id
-    id: Int,
+open class admin(
+
+    id: Long?,
     pseudo: String,
     motDePasse: String
 ) : utilisateur(id, pseudo, motDePasse, estAdmin = true) {

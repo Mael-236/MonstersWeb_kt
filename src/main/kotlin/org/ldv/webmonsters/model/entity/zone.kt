@@ -1,11 +1,11 @@
 package org.ldv.webmonsters.model.entity
 
 class zone(
-    val id: Int,
+    val id: Long?,
     val nom: String,
     val description: String,
+    val niveauMax: Int,
     val niveauMin: Int,
-    val niveauMax: Int
 ) {
     private val monstres = mutableListOf<monstre>()
     private val objets = mutableListOf<objet>()
@@ -17,7 +17,7 @@ class zone(
     fun genererMonstreSauvage(): monstre {
         val niveauMonstre = (niveauMin..niveauMax).random()
         return monstre(
-            id = (1..1000).random(),
+            id = (1..1000).random().toLong(),
             nom = "Monstre Sauvage",
             niveau = niveauMonstre,
             pv = 50 + niveauMonstre * 10,
