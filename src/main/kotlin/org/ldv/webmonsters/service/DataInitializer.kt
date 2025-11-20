@@ -2,6 +2,7 @@ import org.springframework.stereotype.Component
 import org.ldv.webmonsters.model.dao.UtilisateurDAO
 import org.ldv.webmonsters.model.entity.Utilisateur
 import org.springframework.boot.CommandLineRunner
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @Component
 class DataInitializer(
@@ -14,22 +15,20 @@ class DataInitializer(
 //Utilisateurs
         val admin = Utilisateur(
             id = null,
-            nom = "Super",
-            prenom = "Admin",
+            pseudo = "Admin",
             email = "admin@admin.com",
-            mdp = passwordEncoder.encode("admin123"), // mot de passe hashé
+            motDePasse = passwordEncoder.encode("admin123"), // mot de passe hashé
             role = "ADMIN"
         )
 
         val client = Utilisateur(
             id = null,
-            nom = "Jean",
-            prenom = "Client",
+            pseudo = "Client",
             email = "client@client.com",
-            mdp = passwordEncoder.encode("client123"), // mot de passe hashé
+            motDePasse = passwordEncoder.encode("client123"), // mot de passe hashé
             role = "CLIENT"
         )
         utilisateurDAO.saveAll(listOf(admin, client))
-        println("✅ Données initiales insérées : ${roleDAO.count()} Roles, ${utilisateurDAO.count()} utilisateurs.")
+        println("✅ Données initiales insérées : ${utilisateurDAO.count()} utilisateurs.")
     }
 }
