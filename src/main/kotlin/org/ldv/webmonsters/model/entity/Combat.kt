@@ -1,9 +1,9 @@
 package org.ldv.webmonsters.model.entity
 
-class combat(
+class Combat(
     val id: Int,
-    val zone: zone,
-    private val monstres: List<monstre>
+    val zone: Zone,
+    private val Monstres: List<Monstre>
 ) {
     var dureeCombat: Double = 0.0
     var tour: Int = 0

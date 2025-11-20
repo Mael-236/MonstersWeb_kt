@@ -3,7 +3,7 @@ package org.ldv.webmonsters.model.entity
 import jakarta.persistence.*
 
 @Entity
-class monstre(
+class Monstre(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -33,7 +33,7 @@ class monstre(
     @Column(nullable = false)
     var estSauvage: Boolean = true,
 ) {
-    fun attaquer(cible: monstre) {
+    fun attaquer(cible: Monstre) {
         val degats = maxOf(0, this.attaque - cible.defense)
         cible.recevoirDegats(degats)
         println("$nom attaque ${cible.nom} et inflige $degats dégâts")

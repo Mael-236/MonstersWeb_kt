@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-open class utilisateur(
+open class Utilisateur(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -19,7 +19,7 @@ open class utilisateur(
     @Column(nullable = false)
     val estAdmin: Boolean = false,
 )
- {
+{
     fun seConnecter() {
         println("$pseudo s'est connecté")
     }

@@ -1,22 +1,22 @@
 package org.ldv.webmonsters.model.entity
 
-class zone(
+class Zone(
     val id: Long?,
     val nom: String,
     val description: String,
     val niveauMax: Int,
     val niveauMin: Int,
 ) {
-    private val monstres = mutableListOf<monstre>()
-    private val objets = mutableListOf<objet>()
+    private val Monstres = mutableListOf<Monstre>()
+    private val objets = mutableListOf<Objet>()
 
     fun explorer() {
         println("Exploration de la zone: $nom")
     }
 
-    fun genererMonstreSauvage(): monstre {
+    fun genererMonstreSauvage(): Monstre {
         val niveauMonstre = (niveauMin..niveauMax).random()
-        return monstre(
+        return Monstre(
             id = (1..1000).random().toLong(),
             nom = "Monstre Sauvage",
             niveau = niveauMonstre,
@@ -29,7 +29,7 @@ class zone(
         )
     }
 
-    fun estAccessible(utilisateur: utilisateur): Boolean {
+    fun estAccessible(utilisateur: Utilisateur): Boolean {
         // Logique pour vérifier si l'utilisateur peut accéder à cette zone
         return true
     }

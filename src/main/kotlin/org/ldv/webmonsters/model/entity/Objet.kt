@@ -3,7 +3,7 @@ package org.ldv.webmonsters.model.entity
 import jakarta.persistence.*
 
 @Entity
-class objet(
+class Objet(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -24,7 +24,7 @@ class objet(
     @Column(nullable = false)
     var effet: String,
 ) {
-    fun utiliser(cible: monstre) {
+    fun utiliser(cible: Monstre) {
         println("$nom utilisé sur ${cible.nom}: $effet")
         // Logique d'application de l'effet
     }
