@@ -9,7 +9,7 @@ class MainController (){
      * Méthode permettant d'afficher la page d'accueil de l'application.
      * @return le chemin vers le template a partir du dossier ressources/templates (on ne marque pas le .html)
      */
-    @GetMapping("/leCheminDuGetMapping")
+    @GetMapping("/")
     fun home():String{
         return "index"
     }
@@ -19,7 +19,7 @@ class MainController (){
      */
     @GetMapping("/a-propos")
     fun aPropos():String{
-        return "a-propos"
+        return "pagesVisiteur/a-propos"
     }
 
     /**
@@ -27,7 +27,7 @@ class MainController (){
      */
     @GetMapping("/contact")
     fun contact():String{
-        return "contact"
+        return "pagesVisiteur/contact"
     }
 
     /**
@@ -35,7 +35,7 @@ class MainController (){
      */
     @GetMapping("/inscription")
     fun inscription():String{
-        return "inscription"
+        return "pagesVisiteur/inscription"
     }
 
     /**
@@ -43,7 +43,7 @@ class MainController (){
      */
     @GetMapping("/produits")
     fun produits():String{
-        return "produits"
+        return "pagesVisiteur/produits"
     }
 
     /**
@@ -51,6 +51,6 @@ class MainController (){
      */
     @GetMapping("/rgpd")
     fun rgpd():String{
-        return "rgpd"
+        return "pagesVisiteur/rgpd"
     }
 }

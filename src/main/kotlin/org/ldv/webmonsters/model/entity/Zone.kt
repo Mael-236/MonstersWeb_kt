@@ -1,15 +1,38 @@
 package org.ldv.webmonsters.model.entity
 
-class Zone(
-    val id: Long?,
-    val nom: String,
-    val description: String,
-    val niveauMax: Int,
-    val niveauMin: Int,
-) {
-    private val Monstres = mutableListOf<Monstre>()
-    private val objets = mutableListOf<Objet>()
+import jakarta.persistence.*
 
+@Entity
+class Zone(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    var id: Long? = null,
+
+    @Column(nullable = false)
+    var nom: String,
+
+    @Column(nullable = false, length = 500)
+    var description: String,
+
+    @Column(nullable = false)
+    var niveauMax: Int,
+
+    @Column(nullable = false)
+    var niveauMin: Int,
+
+    // Relations (à ajouter plus tard selon votre diagramme)
+    @OneToMany(mappedBy = "zone")
+    var monstres: MutableList<Monstre> = mutableListOf(),
+
+    @ManyToMany
+    @JoinTable(
+        name = "zone_objet",
+        joinColumns = [JoinColumn(name = "zone_id")],
+        inverseJoinColumns = [JoinColumn(name = "objet_id")]
+    )
+    var objets: MutableList<Objet> = mutableListOf()
+) {
     fun explorer() {
         println("Exploration de la zone: $nom")
     }
@@ -17,7 +40,7 @@ class Zone(
     fun genererMonstreSauvage(): Monstre {
         val niveauMonstre = (niveauMin..niveauMax).random()
         return Monstre(
-            id = (1..1000).random().toLong(),
+            id = null,
             nom = "Monstre Sauvage",
             niveau = niveauMonstre,
             pv = 50 + niveauMonstre * 10,
@@ -30,7 +53,6 @@ class Zone(
     }
 
     fun estAccessible(utilisateur: Utilisateur): Boolean {
-        // Logique pour vérifier si l'utilisateur peut accéder à cette zone
         return true
     }
 }

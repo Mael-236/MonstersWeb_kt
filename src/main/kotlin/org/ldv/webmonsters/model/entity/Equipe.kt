@@ -1,12 +1,15 @@
 package org.ldv.webmonsters.model.entity
 
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
 class Equipe {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var monsActif: Monstre? = null
     val tailleMax: Int = 6
     private val Monstres = mutableListOf<Monstre>()
