@@ -1,16 +1,18 @@
 package org.ldv.webmonsters.model.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import org.ldv.webmonsters.model.entity.Monstre
+import jakarta.persistence.*
 
 @Entity
 class Equipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var monsActif: Monstre? = null
+    var id: Long? = null  // Add this as the actual primary key
+
+    @ManyToOne
+    @JoinColumn(name = "monstre_actif_id")
+    var monsActif: Monstre? = null  // Remove @Id from here
     val tailleMax: Int = 6
     private val Monstres = mutableListOf<Monstre>()
 
