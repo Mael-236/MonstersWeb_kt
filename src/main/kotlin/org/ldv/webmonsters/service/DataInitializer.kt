@@ -173,9 +173,9 @@ class DataInitializer(
             attaque = 12,
             defense = 8,
             type = "Feu",
-            estSauvage = false,
-            equipe = equipeJoueur
+            estSauvage = false
         )
+        equipeJoueur.ajouterMonstre(monstreStarter)
         monstreDAO.save(monstreStarter)
 
         equipeJoueur.monsActif = monstreStarter

@@ -1,0 +1,50 @@
+<!doctype html>
+<html th:replace="~{pageAdmin/base :: html}" lang="fr" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5 text-center">Administration des Kubes</h1>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Liste des Kubes</h2>
+                <a th:href="@{/webmonsters/admin/kubes/create}" class="btn btn-success">
+                    + Nouveau Kube
+                </a>
+            </div>
+
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Prix</th>
+                    <th>Rareté</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="kube : ${kubes}">
+                    <td th:text="${kube.id}"></td>
+                    <td th:text="${kube.nom}"></td>
+                    <td th:text="${kube.description}"></td>
+                    <td th:text="${kube.prix} + '€'"></td>
+                    <td th:text="${kube.rarete}"></td>
+                    <td>
+                        <a th:href="@{'/webmonsters/admin/kubes/' + ${kube.id}}"
+                           class="btn btn-info btn-sm me-2">Afficher</a>
+                        <a th:href="@{'/webmonsters/admin/kubes/edit/' + ${kube.id}}"
+                           class="btn btn-warning btn-sm me-2">Modifier</a>
+                        <a th:href="@{'/webmonsters/admin/kubes/delete/' + ${kube.id}}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Supprimer ce kube ?');">Supprimer</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</html>

@@ -1,24 +1,28 @@
 package org.ldv.webmonsters.model.entity
 
-import org.ldv.webmonsters.model.entity.Monstre
 import jakarta.persistence.*
 
 @Entity
-class Equipe {
-
+class Equipe(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null  // Add this as the actual primary key
+    @Column(nullable = false)
+    var id: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "monstre_actif_id")
-    var monsActif: Monstre? = null  // Remove @Id from here
-    val tailleMax: Int = 6
-    private val Monstres = mutableListOf<Monstre>()
+    var monsActif: Monstre? = null,
 
+    @Column(nullable = false)
+    val tailleMax: Int = 6,
+
+    @OneToMany(mappedBy = "equipe", cascade = [CascadeType.ALL])
+    var monstres: MutableList<Monstre> = mutableListOf()
+) {
     fun ajouterMonstre(monstre: Monstre): Boolean {
         return if (!estPleine()) {
-            Monstres.add(monstre)
+            monstres.add(monstre)
+            monstre.equipe = this
             if (monsActif == null) {
                 monsActif = monstre
             }
@@ -31,22 +35,23 @@ class Equipe {
     }
 
     fun retirerMonstre(monstre: Monstre) {
-        if (Monstres.remove(monstre)) {
+        if (monstres.remove(monstre)) {
+            monstre.equipe = null
             if (monsActif == monstre) {
-                monsActif = Monstres.firstOrNull()
+                monsActif = monstres.firstOrNull()
             }
             println("${monstre.nom} retiré de l'équipe")
         }
     }
 
     fun changerMonstreActif(monstre: Monstre) {
-        if (monstre in Monstres) {
+        if (monstre in monstres) {
             monsActif = monstre
             println("${monstre.nom} est maintenant actif")
         }
     }
 
-    fun estPleine(): Boolean = Monstres.size >= tailleMax
+    fun estPleine(): Boolean = monstres.size >= tailleMax
 
-    fun getMonstres(): List<Monstre> = Monstres.toList()
+    fun getMonstres(): List<Monstre> = monstres.toList()
 }

@@ -32,6 +32,10 @@ class Monstre(
 
     @Column(nullable = false)
     var estSauvage: Boolean = true,
+
+    @ManyToOne
+    @JoinColumn(name = "equipe_id")
+    var equipe: Equipe? = null
 ) {
     fun attaquer(cible: Monstre) {
         val degats = maxOf(0, this.attaque - cible.defense)
