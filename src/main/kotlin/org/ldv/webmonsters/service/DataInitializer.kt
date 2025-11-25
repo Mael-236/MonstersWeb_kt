@@ -3,16 +3,19 @@ package org.ldv.webmonsters.service
 import org.ldv.webmonsters.model.dao.*
 import org.ldv.webmonsters.model.entity.*
 import org.springframework.boot.CommandLineRunner
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
 class DataInitializer(
     private val utilisateurDAO: UtilisateurDAO,
     private val adminDAO: AdminDAO,
+    private val roleDAO: RoleDAO,
     private val zoneDAO: ZoneDAO,
     private val monstreDAO: MonstreDAO,
     private val objetDAO: ObjetDAO,
-    private val equipeDAO: EquipeDAO
+    private val equipeDAO: EquipeDAO,
+    private val passwordEncoder: PasswordEncoder
 ) : CommandLineRunner {
 
     override fun run(vararg args: String?) {
@@ -24,20 +27,32 @@ class DataInitializer(
 
         println("🚀 Initialisation des données...")
 
+        // === Rôles ===
+        val roleAdmin = Role(
+            id = null,
+            nom = "ADMIN"
+        )
+        val roleJoueur = Role(
+            id = null,
+            nom = "JOUEUR"
+        )
+        roleDAO.saveAll(listOf(roleAdmin, roleJoueur))
+
         // === Utilisateurs ===
         val admin = Admin(
             id = null,
             pseudo = "Admin",
-            motDePasse = "admin123"
+            motDePasse = passwordEncoder.encode("admin123")
         )
+        admin.role = roleAdmin
         adminDAO.save(admin)
 
         val joueur = Utilisateur(
             id = null,
             pseudo = "Joueur1",
-            motDePasse = "joueur123",
-            estAdmin = false
+            motDePasse = passwordEncoder.encode("joueur123")
         )
+        joueur.role = roleJoueur
         utilisateurDAO.save(joueur)
 
         // === Zones ===
@@ -106,7 +121,7 @@ class DataInitializer(
 
         objetDAO.saveAll(listOf(potion, superPotion, monsterBall, superBall))
 
-        // === Monstres (espèces sauvages dans les zones) ===
+        // === Monstres ===
         val charbouk = Monstre(
             id = null,
             nom = "Charbouk",
@@ -157,7 +172,7 @@ class DataInitializer(
 
         monstreDAO.saveAll(listOf(charbouk, aquabri, brambou, voltix))
 
-        // === Équipe de départ pour le joueur ===
+        // === Équipe de départ ===
         val equipeJoueur = Equipe(
             id = null,
             tailleMax = 6
@@ -182,6 +197,7 @@ class DataInitializer(
         equipeDAO.save(equipeJoueur)
 
         println("✅ Données initiales insérées :")
+        println("   - ${roleDAO.count()} rôles")
         println("   - ${utilisateurDAO.count()} utilisateurs")
         println("   - ${zoneDAO.count()} zones")
         println("   - ${monstreDAO.count()} monstres")
