@@ -89,7 +89,7 @@ function login() {
     }
 
     if (gameState.users[username] && gameState.users[username].password === password) {
-        gameState.currentUser = username;
+        localStorage.setItem('currentUser', username);
         loadGame();
         showMessage('✅ Connexion réussie !');
         setTimeout(() => {
@@ -129,7 +129,7 @@ function register() {
         password: password,
         savedGame: null
     };
-    gameState.currentUser = username;
+    localStorage.setItem('currentUser', username);
     saveUsers();
     showMessage('✅ Compte créé avec succès ! Redirection...');
     
@@ -143,6 +143,7 @@ function logout() {
         saveGame();
         gameState.currentUser = null;
         gameState.gameStarted = false;
+        localStorage.removeItem('currentUser');
         window.location.href = 'index.html';
     }
 }
@@ -257,7 +258,6 @@ function selectStarter(choice) {
 }
 
 function startGame(starterKey) {
-
     const starter = { ...MONSTERS[starterKey], level: 5, exp: 0, id: Date.now() };
     starter.maxHp = Math.floor(starter.hp * (1 + starter.level * 0.1));
     starter.currentHp = starter.maxHp;
@@ -266,10 +266,13 @@ function startGame(starterKey) {
     gameState.team = [starter];
     gameState.box = [];
     gameState.gameStarted = true;
-    
+
+    // Sauvegarder l'utilisateur actuel dans localStorage
+    localStorage.setItem('currentUser', gameState.currentUser);
     saveGame();
+
     showMessage(`🎉 Bienvenue ${gameState.player.name} ! ${starter.name} vous accompagnera dans votre aventure !`);
-    
+
     setTimeout(() => {
         window.location.href = 'exploration.html';
     }, 2000);
@@ -343,6 +346,34 @@ function renderTeam() {
             </div>
         `;
     }).join('');
+
+    function renderPlayerMonster() {
+        const playerMonsterDiv = document.getElementById('player-monster');
+        if (!playerMonsterDiv || gameState.team.length === 0) return;
+
+        const monster = gameState.team[0];
+        const currentHp = monster.currentHp || monster.maxHp;
+        const hpPercent = (currentHp / monster.maxHp) * 100;
+
+        playerMonsterDiv.innerHTML = `
+        <div class="monster-sprite">${monster.sprite}</div>
+        <h3>${monster.name}</h3>
+        <p class="monster-type">${monster.type}</p>
+        <p>Niveau ${monster.level}</p>
+        <div class="stats">
+            <span>⚔️ ${Math.floor(monster.atk * (1 + monster.level * 0.1))}</span>
+            <span>🛡️ ${Math.floor(monster.def * (1 + monster.level * 0.1))}</span>
+            <span>⚡ ${monster.spd}</span>
+        </div>
+    `;
+
+        const playerHpBar = document.getElementById('player-hp');
+        const playerHpText = document.getElementById('player-hp-text');
+        if (playerHpBar && playerHpText) {
+            playerHpBar.style.width = `${hpPercent}%`;
+            playerHpText.textContent = `${currentHp} / ${monster.maxHp} HP`;
+        }
+    }
 
     // Afficher le PC (Box)
     const boxSection = document.getElementById('box-section');
@@ -589,7 +620,7 @@ function useItem(itemKey) {
         );
         battleState.playerMonster.currentHp += healed;
         
-        showBattleMessage(`${gameState.player.name} utilise ${item.name} ! +${healed} HP 💚`);
+        showBattleMessage(`${gameState.player.name} utilise ${item.name} ! +${healed} HP`);
         saveGame();
         updateBattleUI();
         
@@ -601,7 +632,7 @@ function useItem(itemKey) {
         const caught = Math.random() < catchRate;
 
         if (caught) {
-            showBattleMessage(`${battleState.enemy.name} capturé ! 🎉`);
+            showBattleMessage(`${battleState.enemy.name} capturé !`);
             
             const newMonster = { 
                 ...MONSTERS[Object.keys(MONSTERS).find(k => MONSTERS[k].name === battleState.enemy.name)], 
@@ -623,7 +654,7 @@ function useItem(itemKey) {
             saveGame();
             setTimeout(() => endBattle(true, true), 1500);
         } else {
-            showBattleMessage(`${battleState.enemy.name} s'est échappé ! ❌`);
+            showBattleMessage(`${battleState.enemy.name} s'est échappé !`);
             saveGame();
             updateBattleUI();
             battleState.turn = 'enemy';
@@ -772,42 +803,44 @@ function showBattleMessage(text) {
     }
 }
 
-// Initialize on page load
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGame);
-} else {
-    initGame();
-}
+// Initialisation automatique selon la page
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPath = window.location.pathname;
 
-// Vérifier la connexion sur les pages protégées
-if (window.location.pathname.includes('depart.html') || 
-    window.location.pathname.includes('exploration.html') || 
-    window.location.pathname.includes('battle.html') ||
-    window.location.pathname.includes('team.html') ||
-    window.location.pathname.includes('inventory.html')) {
-    
-    loadUsers();
+    // Charger l'utilisateur si connecté
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
         gameState.currentUser = currentUser;
+        loadUsers();
         loadGame();
     }
-    }
 
-// Auto-render battle if battleState exists
-if (window.location.pathname.includes('battle.html')) {
-    if (battleState) {
-        renderBattle();
-    } else {
-        window.location.href = 'exploration.html';
+    // Auto-render selon la page
+    if (currentPath.includes('exploration.html')) {
+        if (gameState.gameStarted) {
+            renderExploration();
+        } else {
+            window.location.href = 'depart.html';
+        }
+    } else if (currentPath.includes('player.html')) {
+        if (gameState.team.length > 0) {
+            renderPlayerMonster();
+        }
+    } else if (currentPath.includes('battle.html')) {
+        if (battleState) {
+            renderBattle();
+        } else {
+            window.location.href = 'exploration.html';
+        }
+    } else if (currentPath.includes('depart.html')) {
+        if (gameState.gameStarted) {
+            window.location.href = 'exploration.html';
+        } else {
+            renderStarters();
+        }
+    } else if (currentPath.includes('team.html')) {
+        renderTeam();
+    } else if (currentPath.includes('inventory.html')) {
+        renderInventory();
     }
-}
-
-// Auto-render starters on depart page
-if (window.location.pathname.includes('depart.html')) {
-    if (gameState.gameStarted) {
-        window.location.href = 'exploration.html';
-    } else {
-        renderStarters();
-    }
-}
+});
