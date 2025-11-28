@@ -35,7 +35,9 @@ class Monstre(
 
     @ManyToOne
     @JoinColumn(name = "equipe_id")
-    var equipe: Equipe? = null
+    var equipe: Equipe? = null,
+@ManyToMany(mappedBy = "monstres")
+    var zones: MutableList<Zone> = mutableListOf()
 ) {
     fun attaquer(cible: Monstre) {
         val degats = maxOf(0, this.attaque - cible.defense)

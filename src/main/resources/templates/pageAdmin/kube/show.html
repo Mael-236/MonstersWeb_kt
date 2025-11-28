@@ -1,0 +1,23 @@
+<!doctype html>
+<html th:replace="~{pageAdmin/base :: html}" lang="fr" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-4">Détails du Kube</h1>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${kube.nom}"></h5>
+                    <p class="card-text"><strong>ID :</strong> <span th:text="${kube.id}"></span></p>
+                    <p class="card-text"><strong>Description :</strong> <span th:text="${kube.description}"></span></p>
+                    <p class="card-text"><strong>Prix :</strong> <span th:text="${kube.prix} + '€'"></span></p>
+                    <p class="card-text"><strong>Rareté :</strong> <span th:text="${kube.rarete}"></span></p>
+
+                    <a th:href="@{/webmonsters/admin/kubes/edit/{id}(id=${kube.id})}" class="btn btn-warning">Modifier</a>
+                    <a th:href="@{/webmonsters/admin/kubes}" class="btn btn-secondary">Retour</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

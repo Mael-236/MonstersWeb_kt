@@ -1,0 +1,40 @@
+<!doctype html>
+<html th:replace="~{pageAdmin/base :: html}" lang="fr" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-4">Modifier le Kube</h1>
+
+            <form th:action="@{/webmonsters/admin/kubes/update/{id}(id=${kube.id})}" th:object="${kube}" method="post">
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" th:field="*{nom}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" th:field="*{description}" rows="3" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="prix" class="form-label">Prix</label>
+                    <input type="number" class="form-control" id="prix" th:field="*{prix}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="rarete" class="form-label">Rareté</label>
+                    <select class="form-control" id="rarete" th:field="*{rarete}">
+                        <option value="Commun">Commun</option>
+                        <option value="Rare">Rare</option>
+                        <option value="Épique">Épique</option>
+                        <option value="Légendaire">Légendaire</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Modifier</button>
+                <a th:href="@{/webmonsters/admin/kubes}" class="btn btn-secondary">Annuler</a>
+            </form>
+        </div>
+    </main>
+</div>
+</html>

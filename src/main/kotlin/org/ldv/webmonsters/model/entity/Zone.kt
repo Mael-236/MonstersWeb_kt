@@ -22,7 +22,13 @@ class Zone(
     var niveauMin: Int,
 
     // Relations (à ajouter plus tard selon votre diagramme)
-    @OneToMany(mappedBy = "zone")
+    @ManyToMany
+
+    @JoinTable(
+        name = "zone_monstre",
+        joinColumns = [JoinColumn(name = "zone_id")],
+        inverseJoinColumns = [JoinColumn(name = "monstre_id")]
+    )
     var monstres: MutableList<Monstre> = mutableListOf(),
 
     @ManyToMany

@@ -53,5 +53,5 @@ class Equipe(
 
     fun estPleine(): Boolean = monstres.size >= tailleMax
 
-    fun getMonstres(): List<Monstre> = monstres.toList()
+
 }

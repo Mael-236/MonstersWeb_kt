@@ -21,6 +21,10 @@ body {
     flex-wrap: wrap;
 }
 
+#nav {
+    overflow: hidden;
+}
+
 #connecte {
     display: flex;
     gap: 0.5rem;

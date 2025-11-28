@@ -1,0 +1,42 @@
+<!doctype html>
+<html th:replace="~{pageAdmin/base :: html}" lang="fr" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5 text-center">Tableau de bord Administrateur</h1>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Kubes</h5>
+                            <p class="card-text">Gérer les Kubes de capture</p>
+                            <a th:href="@{/webmonsters/admin/kubes}" class="btn btn-primary">Accéder</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Zones</h5>
+                            <p class="card-text">Gérer les zones d'exploration</p>
+                            <a th:href="@{/webmonsters/admin/zones}" class="btn btn-primary">Accéder</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Monstres</h5>
+                            <p class="card-text">Gérer les espèces de monstres</p>
+                            <a th:href="@{/webmonsters/admin/monstres}" class="btn btn-primary">Accéder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html th:replace="~{base :: html}" lang="fr" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-4">Mon Profil</h1>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Informations personnelles</h5>
+                            <p><strong>Pseudo :</strong> <span th:text="${utilisateur.pseudo}"></span></p>
+                            <p><strong>Date de création :</strong> <span th:text="${#temporals.format(utilisateur.dateCreation, 'dd/MM/yyyy HH:mm')}"></span></p>
+                            <p><strong>Dernière modification :</strong> <span th:text="${#temporals.format(utilisateur.dateModification, 'dd/MM/yyyy HH:mm')}"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Actions</h5>
+                            <a href="/exploration.html" class="btn btn-primary">Commencer à jouer</a>
+                            <a th:href="@{/webmonsters/joueur/equipe}" class="btn btn-success">Mon équipe</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Navigation rapide</h5>
+                            <ul class="list-unstyled">
+                                <li><a th:href="@{/}">Accueil</a></li>
+                                <li><a th:href="@{/produits}">Produits</a></li>
+                                <li><a th:href="@{/contact}">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

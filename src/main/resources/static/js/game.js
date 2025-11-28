@@ -93,7 +93,7 @@ function login() {
         loadGame();
         showMessage('✅ Connexion réussie !');
         setTimeout(() => {
-            window.location.href = 'depart.html';
+            window.location.href = '../templates/player.html';
         }, 1000);
     } else {
         showMessage('❌ Nom d\'utilisateur ou mot de passe incorrect');
@@ -134,7 +134,7 @@ function register() {
     showMessage('✅ Compte créé avec succès ! Redirection...');
     
     setTimeout(() => {
-        window.location.href = 'depart.html';
+        window.location.href = '../templates/depart.html';
     }, 1000);
 }
 
